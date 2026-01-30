@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Text Summarizer</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <div class="title" id="title">AI Text Summarizer</div>
+        <button id="openSummaryPanel" class="btnSecondary" type="button"></button>
+      </div>
+
+      <section class="card" aria-label="Settings">
+        <div class="cardBody">
+          <div class="row">
+            <label class="label" for="uiLanguage" id="uiLanguageLabel">UI language</label>
+            <select id="uiLanguage"></select>
+          </div>
+
+          <div class="row">
+            <label class="label" for="outputLanguage" id="outputLanguageLabel">Output language</label>
+            <select id="outputLanguage"></select>
+          </div>
+
+          <div class="row">
+            <label class="label" for="mode" id="modeLabel">Mode</label>
+            <select id="mode">
+              <option value="free" id="modeFree">Free</option>
+              <option value="own_api" id="modeOwnApi">Use my own API key</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label class="label" for="provider" id="providerLabel">Provider</label>
+            <select id="provider">
+              <option value="groq">Groq</option>
+              <option value="openai">OpenAI</option>
+              <option value="gemini">Gemini</option>
+              <option value="anthropic">Anthropic</option>
+            </select>
+          </div>
+
+          <div class="row">
+            <label class="label" for="modelSelect" id="modelLabel">Model</label>
+            <div class="modelWrap">
+              <select id="modelSelect"></select>
+              <input id="modelCustom" class="hidden" type="text" placeholder="model" />
+            </div>
+          </div>
+
+          <div class="row" id="apiKeyRow">
+            <label class="label" for="apiKey" id="apiKeyLabel">API key</label>
+            <input id="apiKey" type="password" placeholder="" />
+          </div>
+
+          <div class="row">
+            <div class="label" id="savedApiKeysLabel">Saved API keys</div>
+            <div id="keyList" class="keyList"></div>
+          </div>
+
+          <label class="checkRow" for="bulletSummary">
+            <input id="bulletSummary" type="checkbox" />
+            <span id="bulletSummaryLabel">Bullet summary</span>
+          </label>
+        </div>
+
+        <div class="cardFooter">
+          <div class="actions">
+            <button id="save" class="btnPrimary">Save</button>
+            <div id="status" class="status" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="footer" id="footer">Settings are saved in Chrome sync storage.</div>
+    </div>
+
+    <script src="popup.js" type="module"></script>
+  </body>
+</html>

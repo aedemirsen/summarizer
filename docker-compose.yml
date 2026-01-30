@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-summarizer}
+      POSTGRES_USER: ${POSTGRES_USER:-summarizer}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    ports:
+      - "5435:5435"
+
+  backend:
+    build:
+      context: ./backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      PORT: 9090
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      MANAGED_PROVIDER: ${MANAGED_PROVIDER:-groq}
+      GROQ_API_KEY: ${GROQ_API_KEY}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      DEFAULT_MODEL: ${DEFAULT_MODEL:-llama-3.1-8b-instant}
+      FREE_DAILY_LIMIT: ${FREE_DAILY_LIMIT:-5}
+      PAID_MONTHLY_LIMIT: ${PAID_MONTHLY_LIMIT:-500}
+      EXTENSION_DAILY_LIMIT: ${EXTENSION_DAILY_LIMIT:-5}
+      ADMIN_STATS_TOKEN: ${ADMIN_STATS_TOKEN}
+      APP_URL: ${APP_URL:-http://localhost:9090}
+    ports:
+      - "9090:9090"
+
+volumes:
+  pgdata:

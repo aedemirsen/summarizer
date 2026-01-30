@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI Text Summarizer - Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>AI Text Summarizer</h1>
+
+      <section class="card">
+        <h2>Settings</h2>
+
+        <label class="row">
+          <span>Mode</span>
+          <select id="mode">
+            <option value="free">Free</option>
+            <option value="own_api">Use my own API key</option>
+          </select>
+        </label>
+
+        <label class="row">
+          <span>Provider (own key)</span>
+          <select id="provider">
+            <option value="groq">Groq (OpenAI-compatible)</option>
+            <option value="openai">OpenAI</option>
+            <option value="gemini">Gemini</option>
+            <option value="anthropic">Anthropic</option>
+          </select>
+        </label>
+
+        <label class="row">
+          <span>Model</span>
+          <div class="modelWrap">
+            <select id="modelSelect"></select>
+            <input id="modelCustom" class="hidden" type="text" placeholder="custom model name" />
+          </div>
+        </label>
+
+        <label class="row">
+          <span>Format</span>
+          <label class="inlineRow">
+            <input id="bulletSummary" type="checkbox" />
+            <span>Bullet points</span>
+          </label>
+        </label>
+      </section>
+
+      <section class="card">
+        <h2>API Key (encrypted in sync storage)</h2>
+
+        <label class="row">
+          <span>API key</span>
+          <input id="apiKey" type="password" placeholder="Paste your provider API key" />
+        </label>
+
+        <p class="hint">
+          Your API key is stored encrypted in <code>chrome.storage.sync</code>.
+          No passphrase is required.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>Save settings</h2>
+        <div class="actions">
+          <button id="save">Save</button>
+        </div>
+
+        <pre id="status" class="status"></pre>
+      </section>
+
+      <p class="footer">Manifest V3. No page content is stored.</p>
+    </div>
+
+    <script src="options.js" type="module"></script>
+  </body>
+</html>
