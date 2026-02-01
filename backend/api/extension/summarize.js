@@ -11,9 +11,23 @@ function clampText(text, maxChars) {
 }
 
 function summarizePrompt(text, { bulletSummary, outputLanguage }) {
+  const textLength = text.length;
+  
+  // Determine summary length based on input text length
+  let summaryLength;
+  if (textLength < 500) {
+    summaryLength = "very short (1-2 sentences)";
+  } else if (textLength < 1500) {
+    summaryLength = "short (2-4 sentences)";
+  } else if (textLength < 3000) {
+    summaryLength = "medium (3-6 sentences)";
+  } else {
+    summaryLength = "detailed (5-8 sentences)";
+  }
+
   const summaryFormat = bulletSummary
-    ? `Output format:\n- Bullet points only.\n- 4-8 bullets.\n- Each bullet should be one sentence.`
-    : `Output format:\n- A short paragraph (2-5 sentences).\n- No bullet points.`;
+    ? `Output format:\n- Bullet points only.\n- ${textLength < 1500 ? '3-5' : textLength < 3000 ? '5-8' : '6-10'} bullets.\n- Each bullet should be one sentence.`
+    : `Output format:\n- A ${summaryLength} paragraph.\n- No bullet points.`;
 
   const langLabel = (code) => {
     const c = (code || "").toLowerCase();
@@ -35,7 +49,7 @@ function summarizePrompt(text, { bulletSummary, outputLanguage }) {
     ? `- Output MUST be in ${langLabel(outLang)} (even if the input is in a different language).`
     : "- Keep the output in the same language as the input.";
 
-  return `You are a precise summarizer.\n\nTask:\n- Read the input and output ONLY the summary.\n- Keep ONLY the most important parts. Do not include filler.\n- Keep the summary short and precise.\n${outputRule}\n\n${summaryFormat}\n\nStyling:\n- Use **bold** for key terms and *italic* for emphasis when helpful.\n- Do not use markdown code fences.\n- Do not quote the input.\n\nInput:\n"""\n${text}\n"""`;
+  return `You are a precise summarizer.\n\nTask:\n- Read the input and output ONLY the summary.\n- Keep ONLY the most important parts. Do not include filler.\n- Adjust summary length based on input text length: ${summaryLength}.\n${outputRule}\n\n${summaryFormat}\n\nStyling:\n- Use **bold** for key terms and *italic* for emphasis when helpful.\n- Do not use markdown code fences.\n- Do not quote the input.\n\nInput:\n"""\n${text}\n"""`;
 }
 
 function getAllowedFreeModels() {
