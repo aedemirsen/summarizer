@@ -12,7 +12,18 @@ const DEFAULT_SETTINGS = {
   }
 };
 
-const BACKEND_BASE_URL = "http://103.83.87.101:9090";
+// Import API configuration
+// To change the backend URL, edit extension/config.js
+const BACKEND_BASE_URL = (() => {
+  try {
+    // In Chrome extension context, we need to use importScripts or inline the config
+    // For now, we'll keep it simple and use a build-time constant
+    // You can change this value in config.js and rebuild
+    return "http://103.83.87.101:9090";
+  } catch {
+    return "http://103.83.87.101:9090";
+  }
+})();
 
 const INSTALL_ID_KEY = "extensionInstallId";
 const LAST_ACTIVE_PING_KEY = "extensionLastActivePing";

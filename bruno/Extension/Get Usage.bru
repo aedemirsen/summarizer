@@ -1,0 +1,19 @@
+meta {
+  name: Get Usage
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/api/extension/usage
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "installId": "i_test123456789",
+    "extensionVersion": "0.1.0",
+    "provider": "groq"
+  }
+}

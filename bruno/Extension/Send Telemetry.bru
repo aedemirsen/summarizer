@@ -1,0 +1,19 @@
+meta {
+  name: Send Telemetry
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/api/extension/telemetry
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "installId": "i_test123456789",
+    "extensionVersion": "0.1.0",
+    "eventType": "active"
+  }
+}

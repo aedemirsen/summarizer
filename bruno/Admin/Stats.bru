@@ -1,0 +1,15 @@
+meta {
+  name: Stats
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/admin/stats?days=30
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

@@ -1,6 +1,8 @@
-const http = require("http");
+const express = require("express");
 const fs = require("fs");
 const path = require("path");
+const swaggerUi = require("swagger-ui-express");
+const swaggerSpec = require("./swagger");
 
 function normalizePathname(p) {
   if (!p) return "/";
@@ -26,21 +28,33 @@ function getHandlerFileForPathname(pathname) {
   return full;
 }
 
-const server = http.createServer(async (req, res) => {
-  try {
-    const u = new URL(req.url || "", `http://${req.headers.host || "localhost"}`);
-    const pathname = normalizePathname(u.pathname);
+const app = express();
 
-    if (pathname === "/" || pathname === "/health") {
-      sendJson(res, 200, { ok: true });
-      return;
-    }
+// NOTE: Do NOT use express.json() here.
+// Existing /api/* handlers read the request body themselves (stream-based).
+
+app.get(["/", "/health"], (req, res) => {
+  sendJson(res, 200, { ok: true });
+});
+
+app.get("/api-docs.json", (req, res) => {
+  sendJson(res, 200, swaggerSpec);
+});
+
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec, { explorer: true }));
+
+app.all(/^\/api\/.*/, async (req, res) => {
+  try {
+    const pathname = normalizePathname(req.path);
 
     const handlerFile = getHandlerFileForPathname(pathname);
     if (!handlerFile || !fs.existsSync(handlerFile)) {
       sendJson(res, 404, { error: "Not found" });
       return;
     }
+
+    // Ensure fresh loads during dev (optional; harmless in prod)
+    delete require.cache[require.resolve(handlerFile)];
 
     const handler = require(handlerFile);
     if (typeof handler !== "function") {
@@ -54,5 +68,9 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
+app.use((req, res) => {
+  sendJson(res, 404, { error: "Not found" });
+});
+
 const port = Number(process.env.PORT || 9090);
-server.listen(port, "0.0.0.0");
+app.listen(port, "0.0.0.0");

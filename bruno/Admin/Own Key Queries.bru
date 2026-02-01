@@ -1,0 +1,15 @@
+meta {
+  name: Own Key Queries
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/admin/own-key-queries
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

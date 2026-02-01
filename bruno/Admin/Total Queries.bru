@@ -1,0 +1,15 @@
+meta {
+  name: Total Queries
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/api/admin/total-queries
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{adminToken}}
+}

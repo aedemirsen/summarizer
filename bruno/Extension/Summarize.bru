@@ -1,0 +1,23 @@
+meta {
+  name: Summarize (Free Mode)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/api/extension/summarize
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "installId": "i_test123456789",
+    "extensionVersion": "0.1.0",
+    "text": "Artificial intelligence (AI) is intelligence demonstrated by machines, in contrast to the natural intelligence displayed by humans and animals. Leading AI textbooks define the field as the study of intelligent agents: any device that perceives its environment and takes actions that maximize its chance of successfully achieving its goals.",
+    "provider": "groq",
+    "model": "llama-3.1-8b-instant",
+    "bulletSummary": false,
+    "outputLanguage": "auto"
+  }
+}
