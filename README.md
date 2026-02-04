@@ -1,4 +1,4 @@
-# AI Text Summarizer (Chrome Extension + Serverless Backend)
+# Summarizer (Chrome Extension + Serverless Backend)
 
 ## Folder structure
 

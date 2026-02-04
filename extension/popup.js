@@ -18,7 +18,7 @@ const FREE_PROVIDER_MODELS = {
 
 const I18N = {
   en: {
-    title: "AI Text Summarizer",
+    title: "Summarizer",
     uiLanguage: "UI language",
     outputLanguage: "Output language",
     mode: "Mode",

@@ -1,5 +1,5 @@
 {
-  "name": "ai-summarizer-backend",
+  "name": "summarizer-backend",
   "private": true,
   "type": "commonjs",
   "engines": {

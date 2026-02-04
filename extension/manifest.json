@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "AI Text Summarizer",
+  "name": "Summarizer",
   "version": "0.1.0",
   "description": "Summarize selected text on any webpage.",
   "permissions": ["storage", "activeTab"],
@@ -10,8 +10,12 @@
     "type": "module"
   },
   "action": {
-    "default_title": "AI Text Summarizer",
-    "default_popup": "popup.html"
+    "default_title": "Summarizer",
+    "default_popup": "popup.html",
+    "default_icon": "icon-128.png"
+  },
+  "icons": {
+    "128": "icon-128.png"
   },
   "options_page": "options.html",
   "content_scripts": [

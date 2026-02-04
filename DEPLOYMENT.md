@@ -58,7 +58,7 @@ When you open the zip, you should see `manifest.json` at the top level.
 From repo root:
 
 ```bash
-zip -r ai-text-summarizer.zip extension \
+zip -r summarizer.zip extension \
   -x "**/.DS_Store" "**/__MACOSX" "**/.git*"
 ```
 
@@ -66,7 +66,7 @@ Preferred (manifest at zip root):
 
 ```bash
 cd extension
-zip -r ../ai-text-summarizer.zip . \
+zip -r ../summarizer.zip . \
   -x "**/.DS_Store" "**/__MACOSX" "**/.git*"
 ```
 

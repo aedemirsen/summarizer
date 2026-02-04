@@ -33,9 +33,11 @@ const I18N = {
     uiLanguage: "UI language",
     outputLanguage: "Output language",
     auto: "Auto",
+    history: "History",
+    historyToggle: "Show/Hide History",
     outputInfoAuto: "Output language: same as input",
     outputInfoFixed: "Output: ",
-    tooShortText: "Please select a larger text (at least 3 sentences and 50 words).",
+    tooShortText: "Please select a larger text (at least 3 sentences and 30 words).",
     tooShortCode: "Please select more code (at least 4 lines).",
     save: "Save",
     saved: "Saved.",
@@ -92,9 +94,11 @@ const I18N = {
     uiLanguage: "Arayüz dili",
     outputLanguage: "Çıktı dili",
     auto: "Otomatik",
+    history: "Geçmiş",
+    historyToggle: "Geçmişi Göster/Gizle",
     outputInfoAuto: "Çıktı Dili: metin ile aynı",
     outputInfoFixed: "Çıktı: ",
-    tooShortText: "Daha büyük bir alan seçmelisiniz (en az 3 cümle ve 50 kelime).",
+    tooShortText: "Daha büyük bir alan seçmelisiniz (en az 3 cümle ve 30 kelime).",
     tooShortCode: "Daha fazla kod seçmelisiniz (en az 4 satır).",
     save: "Kaydet",
     saved: "Kaydedildi.",
@@ -148,7 +152,7 @@ const I18N = {
     auto: "Auto",
     outputInfoAuto: "Ausgabesprache: wie Eingabe",
     outputInfoFixed: "Ausgabe: ",
-    tooShortText: "Bitte wähle einen längeren Text (mindestens 3 Sätze und 50 Wörter).",
+    tooShortText: "Bitte wähle einen längeren Text (mindestens 3 Sätze und 30 Wörter).",
     tooShortCode: "Bitte wähle mehr Code (mindestens 4 Zeilen).",
     save: "Speichern",
     saved: "Gespeichert.",
@@ -194,7 +198,7 @@ const I18N = {
     auto: "Auto",
     outputInfoAuto: "Langue de sortie : identique à l'entrée",
     outputInfoFixed: "Sortie : ",
-    tooShortText: "Veuillez sélectionner un texte plus long (au moins 3 phrases et 50 mots).",
+    tooShortText: "Veuillez sélectionner un texte plus long (au moins 3 phrases et 30 mots).",
     tooShortCode: "Veuillez sélectionner plus de code (au moins 4 lignes).",
     save: "Enregistrer",
     saved: "Enregistré.",
@@ -240,7 +244,7 @@ const I18N = {
     auto: "Auto",
     outputInfoAuto: "Idioma de salida: igual que entrada",
     outputInfoFixed: "Salida: ",
-    tooShortText: "Selecciona un texto más largo (al menos 3 frases y 50 palabras).",
+    tooShortText: "Selecciona un texto más largo (al menos 3 frases y 30 palabras).",
     tooShortCode: "Selecciona más código (al menos 4 líneas).",
     save: "Guardar",
     saved: "Guardado.",
@@ -286,7 +290,7 @@ const I18N = {
     auto: "Auto",
     outputInfoAuto: "Lingua di uscita: come input",
     outputInfoFixed: "Output: ",
-    tooShortText: "Seleziona un testo più lungo (almeno 3 frasi e 50 parole).",
+    tooShortText: "Seleziona un testo più lungo (almeno 3 frasi e 30 parole).",
     tooShortCode: "Seleziona più codice (almeno 4 righe).",
     save: "Salva",
     saved: "Salvato.",
@@ -332,7 +336,7 @@ const I18N = {
     auto: "Auto",
     outputInfoAuto: "Idioma de saída: igual à entrada",
     outputInfoFixed: "Saída: ",
-    tooShortText: "Selecione um texto maior (pelo menos 3 frases e 50 palavras).",
+    tooShortText: "Selecione um texto maior (pelo menos 3 frases e 30 palavras).",
     tooShortCode: "Selecione mais código (pelo menos 4 linhas).",
     save: "Salvar",
     saved: "Salvo.",
@@ -378,7 +382,7 @@ const I18N = {
     auto: "Авто",
     outputInfoAuto: "Язык вывода: как во входном тексте",
     outputInfoFixed: "Вывод: ",
-    tooShortText: "Выберите текст побольше (минимум 3 предложения и 50 слов).",
+    tooShortText: "Выберите текст побольше (минимум 3 предложения и 30 слов).",
     tooShortCode: "Выберите больше кода (минимум 4 строки).",
     save: "Сохранить",
     saved: "Сохранено.",
@@ -424,7 +428,7 @@ const I18N = {
     auto: "تلقائي",
     outputInfoAuto: "لغة الإخراج: مثل الإدخال",
     outputInfoFixed: "الإخراج: ",
-    tooShortText: "يرجى تحديد نص أطول (على الأقل 3 جمل و 50 كلمة).",
+    tooShortText: "يرجى تحديد نص أطول (على الأقل 3 جمل و 30 كلمة).",
     tooShortCode: "يرجى تحديد المزيد من الكود (على الأقل 4 أسطر).",
     save: "حفظ",
     saved: "تم الحفظ.",
@@ -470,7 +474,7 @@ const I18N = {
     auto: "自动",
     outputInfoAuto: "输出语言：与输入相同",
     outputInfoFixed: "输出：",
-    tooShortText: "请选择更长的文本（至少 3 句且 50 个词）。",
+    tooShortText: "请选择更长的文本（至少 3 句且 30 个词）。",
     tooShortCode: "请选择更多代码（至少 4 行）。",
     save: "保存",
     saved: "已保存。",
@@ -724,11 +728,13 @@ function estimateSummaryPanelHeight(text) {
 }
 
 function maybeGrowPanelForSummary(text) {
-  const desired = estimateSummaryPanelHeight(text);
-  const minH = 160;
-  const maxH = Math.max(minH, window.innerHeight - 16);
-  const next = clamp(desired, minH, maxH);
-  if (next > currentState.panelH) currentState.panelH = next;
+  // We use CSS auto-height now, so we don't need to manually grow the panel height
+  // but we might want to ensure it doesn't jump too much.
+  // For now, we'll let CSS handle it.
+}
+
+function expandPanelForHistory() {
+  // We use CSS auto-height now, so we don't need this manual calculation
 }
 
 function renderCurrentPanel() {
@@ -761,6 +767,7 @@ function renderCurrentPanel() {
     title,
     loading: currentState.loading,
     view: currentState.view,
+    historyExpanded: currentState.historyExpanded,
     errorMessage: currentState.errorMessage,
     rawText: showCopied ? t("copied") : currentState.summaryText,
     body: currentState.summaryText,
@@ -1080,6 +1087,18 @@ function createShadowUI() {
 
   const shadow = host.attachShadow({ mode: "open" });
 
+  shadow.addEventListener("click", (e) => {
+    const path = e.composedPath();
+    const historyHeader = path.find(el => el.classList && el.classList.contains("historyHeader"));
+    if (historyHeader) {
+      const isTrashBtn = path.find(el => el.classList && el.classList.contains("historyClearBtn"));
+      if (!isTrashBtn) {
+        currentState.historyExpanded = !currentState.historyExpanded;
+        renderCurrentPanel();
+      }
+    }
+  });
+
   const style = document.createElement("style");
   style.textContent = `
     :host { all: initial; }
@@ -1116,9 +1135,9 @@ function createShadowUI() {
       display: flex;
       flex-direction: column;
       width: 420px;
-      height: 240px;
+      /* removed fixed height to allow auto-growth */
       max-width: min(720px, calc(100vw - 16px));
-      max-height: min(520px, calc(100vh - 16px));
+      max-height: min(70vh, calc(100vh - 16px));
       min-width: 280px;
       min-height: 160px;
       overflow: hidden;
@@ -1205,15 +1224,43 @@ function createShadowUI() {
       padding-top: 10px;
       border-top: 1px solid rgba(0,0,0,0.08);
     }
-    .historyTitle {
+    .historyHeader {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      cursor: pointer;
+      user-select: none;
+      padding: 4px 0;
+    }
+    .historyTitle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
       font-size: 12px;
       font-weight: 600;
       opacity: 0.85;
-      margin-bottom: 8px;
+    }
+    .historyChevron {
+      width: 14px;
+      height: 14px;
+      transition: transform 0.2s ease;
+      opacity: 0.6;
+    }
+    .historyChevron.expanded {
+      transform: rotate(180deg);
+    }
+    .historyTitleMain {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .historyContent {
+      display: none;
+      margin-top: 10px;
+    }
+    .historyContent.expanded {
+      display: block;
     }
     .historyClearBtn {
       pointer-events: auto;
@@ -1403,6 +1450,13 @@ function iconSvg(name) {
         <path d="M6 9h12l-1 12H7L6 9Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
         <path d="M10 12v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         <path d="M14 12v6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    `;
+  }
+  if (name === "chevron-down") {
+    return `
+      <svg class="historyChevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     `;
   }
@@ -1700,9 +1754,20 @@ function renderPanel(state) {
   const panel = document.createElement("div");
   panel.className = "panel";
   panel.style.width = `${Math.round(state.w)}px`;
-  panel.style.height = `${Math.round(state.h)}px`;
+  // If we are in summary view, we let it height auto-grow. 
+  // If we are in settings or it was manually resized, we might use fixed height.
   if (state.view === "settings") {
+    panel.style.height = `${Math.round(state.h)}px`;
     panel.style.maxHeight = `calc(100vh - 16px)`;
+  } else {
+    // For summary view, we don't force height unless it's being resized.
+    // We removed currentState.pinned from here to allow auto-height when pinned,
+    // so it can grow with the history dropdown even if it's pinned.
+    if (currentState.resizing) {
+       panel.style.height = `${Math.round(state.h)}px`;
+    } else {
+       panel.style.height = "auto";
+    }
   }
 
   const header = document.createElement("div");
@@ -1811,85 +1876,96 @@ function renderPanel(state) {
     bodyEl.appendChild(content);
     renderRichText(content, state.body || "");
 
-    if (Array.isArray(state.recentSummaries)) {
-      const section = document.createElement("div");
-      section.className = "historySection";
+    const section = document.createElement("div");
+    section.className = "historySection";
 
-      const title = document.createElement("div");
-      title.className = "historyTitle";
+    const header = document.createElement("div");
+    header.className = "historyHeader";
+    header.title = t("historyToggle");
 
-      const titleText = document.createElement("div");
-      titleText.textContent = t("history");
-      title.appendChild(titleText);
+    const titleContainer = document.createElement("div");
+    titleContainer.className = "historyTitle";
 
-      const clearAll = document.createElement("button");
-      clearAll.className = "historyClearBtn";
-      clearAll.type = "button";
-      clearAll.setAttribute("aria-label", t("historyClear"));
-      clearAll.title = t("historyClear");
-      clearAll.innerHTML = iconSvg("trash");
-      clearAll.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (state.recentSummaries.length === 0) return;
-        if (typeof state.onClearHistory === "function") state.onClearHistory();
-      });
-      title.appendChild(clearAll);
-      section.appendChild(title);
+    const chevron = document.createElement("div");
+    chevron.className = `historyChevron ${state.historyExpanded ? "expanded" : ""}`;
+    chevron.innerHTML = iconSvg("chevron-down");
+    titleContainer.appendChild(chevron);
 
-      if (state.recentSummaries.length === 0) {
-        const empty = document.createElement("div");
-        empty.className = "muted";
-        empty.style.fontSize = "12px";
-        empty.textContent = t("historyEmpty");
-        section.appendChild(empty);
-      } else {
-        const list = document.createElement("div");
-        list.className = "historyList";
-        for (const it of state.recentSummaries) {
-          const row = document.createElement("div");
-          row.className = "historyItem";
-          row.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            state.onOpenHistoryItem(it);
-          });
+    const titleText = document.createElement("div");
+    titleText.textContent = t("history");
+    titleContainer.appendChild(titleText);
+    header.appendChild(titleContainer);
 
-          const main = document.createElement("div");
-          main.className = "historyItemMain";
+    const clearAll = document.createElement("button");
+    clearAll.className = "historyClearBtn";
+    clearAll.type = "button";
+    clearAll.setAttribute("aria-label", t("historyClear"));
+    clearAll.title = t("historyClear");
+    clearAll.innerHTML = iconSvg("trash");
+    clearAll.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (state.recentSummaries.length === 0) return;
+      if (typeof state.onClearHistory === "function") state.onClearHistory();
+    });
+    header.appendChild(clearAll);
+    section.appendChild(header);
 
-          const tt = document.createElement("div");
-          tt.className = "historyItemTitle";
-          tt.textContent = it?.sourceTitle || it?.sourceHost || it?.provider || t("summary");
-          main.appendChild(tt);
+    const historyContent = document.createElement("div");
+    historyContent.className = `historyContent ${state.historyExpanded ? "expanded" : ""}`;
 
-          const meta = document.createElement("div");
-          meta.className = "historyItemMeta";
-          const providerModel = `${it?.provider || ""}${it?.model ? ` / ${it.model}` : ""}`.trim();
-          const preview = safeOneLine(it?.inputPreview || it?.summaryPreview || "", 80);
-          meta.textContent = `${providerModel}${providerModel && preview ? " • " : ""}${preview}`.trim();
-          main.appendChild(meta);
+    if (state.recentSummaries.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "muted";
+      empty.style.fontSize = "12px";
+      empty.textContent = t("historyEmpty");
+      historyContent.appendChild(empty);
+    } else {
+      const list = document.createElement("div");
+      list.className = "historyList";
+      for (const it of state.recentSummaries) {
+        const row = document.createElement("div");
+        row.className = "historyItem";
+        row.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          state.onOpenHistoryItem(it);
+        });
 
-          const del = document.createElement("button");
-          del.className = "historyDeleteBtn";
-          del.type = "button";
-          del.textContent = t("historyDelete");
-          del.title = t("historyDelete");
-          del.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            state.onDeleteHistoryItem(it);
-          });
+        const main = document.createElement("div");
+        main.className = "historyItemMain";
 
-          row.appendChild(main);
-          row.appendChild(del);
-          list.appendChild(row);
-        }
-        section.appendChild(list);
+        const tt = document.createElement("div");
+        tt.className = "historyItemTitle";
+        tt.textContent = it?.sourceTitle || it?.sourceHost || it?.provider || t("summary");
+        main.appendChild(tt);
+
+        const meta = document.createElement("div");
+        meta.className = "historyItemMeta";
+        const providerModel = `${it?.provider || ""}${it?.model ? ` / ${it.model}` : ""}`.trim();
+        const preview = safeOneLine(it?.inputPreview || it?.summaryPreview || "", 80);
+        meta.textContent = `${providerModel}${providerModel && preview ? " • " : ""}${preview}`.trim();
+        main.appendChild(meta);
+
+        const del = document.createElement("button");
+        del.className = "historyDeleteBtn";
+        del.type = "button";
+        del.textContent = t("historyDelete");
+        del.title = t("historyDelete");
+        del.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          state.onDeleteHistoryItem(it);
+        });
+
+        row.appendChild(main);
+        row.appendChild(del);
+        list.appendChild(row);
       }
-
-      bodyEl.appendChild(section);
+      historyContent.appendChild(list);
     }
+    section.appendChild(historyContent);
+    bodyEl.appendChild(section);
   }
 
   panel.appendChild(header);
@@ -2281,6 +2357,7 @@ let currentState = {
   panelY: 0,
   panelW: 420,
   panelH: 240,
+  historyExpanded: false,
   dragging: false,
   resizing: false,
   resizeDir: "",
@@ -2612,7 +2689,7 @@ async function showSummaryFlow(passedSelection) {
   } else {
     const sentenceCount = countSentences(text);
     const wordCount = countWords(text);
-    if (sentenceCount < 3 || wordCount < 50) {
+    if (sentenceCount < 3 || wordCount < 30) {
       currentState.showing = "panel";
       currentState.panelW = nextW;
       currentState.panelH = nextH;
