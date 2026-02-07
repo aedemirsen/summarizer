@@ -1,24 +1,19 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const config = require("./config");
 const { query } = require("./db");
 
-function requireEnv(name) {
-  const v = process.env[name];
-  if (!v) throw new Error(`${name} is not set`);
-  return v;
-}
-
 function signAccessToken(user) {
-  const secret = requireEnv("JWT_SECRET");
+  const secret = config.auth.jwtSecret();
   return jwt.sign(
     { sub: user.id, email: user.email },
     secret,
-    { expiresIn: "30d" }
+    { expiresIn: config.auth.jwtExpiresIn }
   );
 }
 
 function verifyAccessToken(token) {
-  const secret = requireEnv("JWT_SECRET");
+  const secret = config.auth.jwtSecret();
   return jwt.verify(token, secret);
 }
 
@@ -61,7 +56,7 @@ async function requireUser(req) {
 }
 
 async function hashPassword(password) {
-  return bcrypt.hash(password, 12);
+  return bcrypt.hash(password, config.auth.bcryptRounds);
 }
 
 async function verifyPassword(password, hash) {

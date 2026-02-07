@@ -1,15 +1,11 @@
 const { handleOptions, setCors } = require("../../lib/cors");
 const { setJson } = require("../../lib/http");
 const { query } = require("../../lib/db");
+const config = require("../../lib/config");
 
 function requireAdmin(req) {
   const token = (req.headers.authorization || "").replace(/^Bearer\s+/i, "").trim();
-  const expected = (process.env.ADMIN_STATS_TOKEN || "").trim();
-  if (!expected) {
-    const err = new Error("ADMIN_STATS_TOKEN is not configured");
-    err.statusCode = 500;
-    throw err;
-  }
+  const expected = config.auth.adminStatsToken();
   if (!token || token !== expected) {
     const err = new Error("Unauthorized");
     err.statusCode = 401;

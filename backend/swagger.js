@@ -6,7 +6,7 @@ const options = {
     info: {
       title: "Summarizer API",
       version: "1.0.0",
-      description: "API documentation for the AI Text Summarizer backend",
+      description: "API documentation for the Summarizer backend",
       contact: {
         name: "API Support"
       }
