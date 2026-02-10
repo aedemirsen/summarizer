@@ -117,6 +117,24 @@ docker logs summarizer-backend-1 -f
 4. Select the `extension/` folder
 5. The extension icon should appear in your toolbar
 
+### 3.1 Configure Extension Backend URL (from env)
+
+Chrome extensions cannot read `.env` at runtime. Instead, the backend base URL is baked into `extension/config.js` during packaging.
+
+1. Set the env var and generate the config:
+
+```bash
+export EXTENSION_BACKEND_BASE_URL="http://localhost:9090"
+node scripts/generate-extension-config.js
+```
+
+2. Reload the extension in `chrome://extensions`.
+
+Notes:
+
+- For local development use `http://localhost:9090`
+- For production use your public URL, e.g. `https://api.yourdomain.com`
+
 ### 4. Configure Extension
 
 1. Right-click the extension icon → **Options**

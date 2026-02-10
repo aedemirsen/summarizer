@@ -13,12 +13,8 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:9090",
-        description: "Local development server"
-      },
-      {
-        url: "http://103.83.87.101:9090",
-        description: "Production server"
+        url: "/",
+        description: "Same-origin (recommended)"
       }
     ],
     components: {
