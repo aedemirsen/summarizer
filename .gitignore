@@ -49,3 +49,4 @@ backup.sql
 
 # Docker
 docker-compose.override.yml
+/.idea/
